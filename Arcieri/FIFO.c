@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define t 11
+#define t 12
 #define pag 3 //non funziona con 2 pagine
 int j=0;
 int miss=0;
@@ -10,7 +10,7 @@ for(int i=0;i<pag;i++)
     mem[i][c]=mem[i][c-1];
 }
 
-int checkIns(int *mem[pag][t],int ric[t],int c){
+int checkIns(int mem[pag][t],int ric[t],int c){
 if(c==0)
     return 0;
 for(int i=0;i<pag;i++) {
@@ -28,20 +28,9 @@ mem[j][c]=ric[c];
 j++;
 }
 
-int trova_LRU(int mem[pag][t],int ric[t],int c){
-for(int i=0;i<c;i++){
-   for(int ii=0;ii<pag;ii++){
-        if(ric[i]==mem[ii][c]){
-                printf("%d ",ii);
-                return ii;
-        }
-   }
-}
-}
-
-checkVuoto(int *mem[pag][t],int ric[t],int c){
+int checkVuoto(int mem[pag][t],int ric[t],int c){
 for(int i=0;i<pag;i++){
-    if(mem[i][c]==0) return i;
+    if(&mem[i][c]==0) return i;
 }
 return 0;
 }
@@ -57,14 +46,11 @@ for(int i=0;i<pag;i++){
 
 int main(){
 int memoria[pag][t] = {0};
-int richieste[t] = {1,2,1,3,1,4,3,4,2,1,2};
+int richieste[t] = {1,2,3,4,1,2,5,1,2,3,4,5};
 for (int i=0;i<t;i++){
     copiaPrec(memoria,i);
     if(checkIns(memoria,richieste,i)==0&&checkVuoto(memoria,richieste,i)==0){
-            //insRichiesta(memoria,richieste,i);
-            int lru=trova_LRU(memoria,richieste,i);
-          //  printf("%d ",lru);
-            memoria[lru][i]=richieste[i];
+            insRichiesta(memoria,richieste,i);
     }
     else if(checkVuoto(memoria,richieste,i)!=0&&checkIns(memoria,richieste,i)==0){
         memoria[checkVuoto(memoria,richieste,i)][i]=richieste[i];
@@ -72,6 +58,6 @@ for (int i=0;i<t;i++){
 }
 printf("\n\n");
 stampa(memoria);
-printf("\nMISS = %d",t-miss);
+printf("\nMISS = %d\n",t-miss);
 return 0;
 }
