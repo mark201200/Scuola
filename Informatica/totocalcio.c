@@ -27,13 +27,20 @@ void stampa_mat(int a[][14]){
 
 }
 
-int check_uguale(int v[],int a[][14])
+void check_uguale(int v[],int a[][14])
 {
-    int i,j,check;
+    int i,j;
+    int win[4]={1,1,1,1};
     for (i=0;i<4;i++){
         for(j=0;j<14;j++){
-
+            if(a[i][j]!=v[j]){
+            win[i]=0;
+            }
         }
+    }
+    printf("Le giocate vincenti sono:");
+    for(i=0;i<4;i++){
+        if(win[i]==1) printf("%d",i);
     }
 
 
@@ -42,8 +49,10 @@ int check_uguale(int v[],int a[][14])
 
 int main(){
 int toto[4][14];
+int v[14]={1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 ins_mat(toto);
 stampa_mat(toto);
+check_uguale(v,toto);
 
 
 }
