@@ -17,11 +17,12 @@ stampa dei dati che riguardano il film straniero che ha ottenuto il maggiore inc
  */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct {
-    char titolo[50];
+    char titolo[20];
     char autore[20];
-    float incasso;
+    int incasso;
     char nazione[20];
 
 } film;
@@ -34,25 +35,46 @@ void ins(film l[],int d){
         printf("Inserisci autore:\n");
         scanf("%s",&l[i].autore);
         printf("Inserisci incasso:\n");
-        scanf("%f",&l[i].incasso);
+        scanf("%d",&l[i].incasso);
         printf("Inserisci nazione:\n");
         scanf("%s",&l[i].nazione);
+
    }
 }
 
 float incassomedio(film l[],int d){
-    char autore;
+    char autore1[20];
     int c=0;
-    float media;
-    printf("Inserisci autore:\n");
-    scanf("%s",&autore);
-    for(int i=0;i<d;i++){
-        if(strcmp(l[i].autore,autore)==0){
+    int i;
+    float media=0;
+    printf("Inserisci autor:\n");
+    scanf("%s",&autore1);
+    for(i=0;i<d;i++){
+        if(strcmp(autore1,l[i].autore)==0){
          media=media+l[i].incasso;
          c++;
         }
     }
-    return media/c;
+    return (float)media/c;
+}
+
+
+
+
+void info(film l[],int d){
+    char titolo1[20];
+    printf("\nInserisci titolo:\n");
+    scanf("%s",&titolo1);
+    for(int i=0;i<d;i++){
+        if(strcmp(titolo1,l[i].titolo)==0){
+         printf("\nTitolo: \"%s\"\n",l[i].titolo);
+         printf("Autore: %s\n",l[i].autore);
+         printf("Incasso: %f\n",l[i].incasso);
+         printf("Nazione: %s\n",l[i].nazione);
+
+        }
+
+    }
 }
 
 
@@ -60,7 +82,11 @@ int main(){
     int n;
     printf("n film");
     scanf("%d",&n);
-    film list[n];
+    film list[n-1];
     ins(list,n);
-    printf("%f",incassomedio(list,n));
+    float a=incassomedio(list,n);
+
+    printf("%f",a);
+
+    info(list,n);
 }
