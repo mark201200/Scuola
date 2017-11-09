@@ -22,7 +22,7 @@ typedef struct{
 typedef struct {
     char nome[20];
     char cognome[20];
-    indirizzo indirizzo1
+    indirizzo indirizzo1;
     float fatturato[12];
 }agente;
 
@@ -36,14 +36,18 @@ float fatturato_annuo(agente agenti[MAX],int n){
     return fatt;
 }
 
-float fatturato_mensile(agente agenti[MAX],int n){
-    int j;
+void fatturato_mensile(agente agenti[MAX]){
+    int i,j;
     float fatt = 0;
-    for(j=0;j<MAX;j++){
-        fatt=fatt+agenti[j].fatturato[n];
+    printf("\n");
+    for(i=0;i<12;i++) {
+        fatt=0;
+        for (j = 0; j < MAX; j++) {
+            fatt = fatt + agenti[j].fatturato[i];
+        }
+        printf("Fatturato mese %d:\t%.2f\n",i+1,fatt);
     }
 
-    return fatt;
 }
 
 int fatturatoMax(agente agenti[MAX]){
@@ -58,27 +62,41 @@ int fatturatoMax(agente agenti[MAX]){
     return j;
 }
 
-void ins_agenti(agente agenti[MAX]){
+void ins_agenti(agente agenti[]){
     int i,j;
     for(i=0;i<MAX;i++){
-        printf("Inserisci nome agente %d\n",i);
+        printf("Inserisci nome agente %d  ",i+1);
         scanf("%s",&agenti[i].nome);
-        printf("Inserisci cognome agente %d\n",i);
+        printf("Inserisci cognome agente %d  ",i+1);
         scanf("%s",&agenti[i].cognome);
-        printf("Inserisci via agente %d\n",i);
-        scanf("%s",&agenti[i].indirizzo1.via);
-        printf("Inserisci numero civico agente %d\n",i);
+        printf("Inserisci via agente %d",i+1);
+        scanf(" %[^\n]s",&agenti[i].indirizzo1.via);
+        printf("Inserisci numero civico agente %d  ",i+1);
         scanf("%d",&agenti[i].indirizzo1.numero);
         for(j=0;j<12;j++){
-            printf("Inserisci fatturato mese %d agente %d\n",j,i);
+            printf("Inserisci fatturato mese %d agente %d  ",j+1,i+1);
             scanf("%f",&agenti[i].fatturato[j]);
         }
     }
 }
 
+void info_agenti(agente agenti[]){
+    int i,j;
+    printf("\n");
+    for(i=0;i<MAX;i++){
+        printf("Agente %d:\t%-20s %-20s\t%s %d\t\t%.2f\n",i+1,agenti[i].nome,agenti[i].cognome,agenti[i].indirizzo1.via,agenti[i].indirizzo1.numero,fatturato_annuo(agenti,i));
+    }
+
+
+}
+
 int main(){
     agente agenti[MAX];
     ins_agenti(agenti);
+    info_agenti(agenti);
+    int fmax=fatturatoMax(agenti);
+    printf("\nIl fatturato piu' alto e' stato raggiunto da %s %s!\n",agenti[fmax].nome,agenti[fmax].cognome);
+    fatturato_mensile(agenti);
 }
 
 
