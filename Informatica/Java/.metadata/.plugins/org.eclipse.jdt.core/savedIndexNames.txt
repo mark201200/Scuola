@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+/home/labmat1/Scrivania/alto/Scuola/Informatica/Java/.metadata/.plugins/org.eclipse.jdt.core
-1820116103.index
