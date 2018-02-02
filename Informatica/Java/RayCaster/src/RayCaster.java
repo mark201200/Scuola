@@ -5,7 +5,7 @@ import java.awt.image.*;
 public class RayCaster extends JFrame {
     boolean isRunning = true;
     private BufferedImage image;
-    static int w = 1280, h = 720;
+    static int w = 640, h = 480;
     public int[] pixels;
     Camera camera;
     Screen screen;

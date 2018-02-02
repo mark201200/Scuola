@@ -3,7 +3,7 @@ import java.awt.event.*;
 import java.lang.Math;
 
 public class Camera implements KeyListener {
-    public boolean left, right, forward, back, exit;
+    public boolean left, right, forward, back, exit=true;
     public double posX = 22, posY = 12;
     public double dirX = -1, dirY = 0;
     public double planeX = 0, planeY = 0.66;
@@ -23,8 +23,8 @@ public class Camera implements KeyListener {
             forward = true;
         if((key.getKeyCode() == KeyEvent.VK_DOWN))
             back = true;
-       /* if((key.getKeyCode() == KeyEvent.VK_F1))
-            exit = true;*/
+        if((key.getKeyCode() == KeyEvent.VK_ESCAPE))
+            exit = false;
     }
     public void keyReleased(KeyEvent key) {
         if((key.getKeyCode() == KeyEvent.VK_LEFT))
@@ -35,12 +35,11 @@ public class Camera implements KeyListener {
             forward = false;
         if((key.getKeyCode() == KeyEvent.VK_DOWN))
             back = false;
-        /*if((key.getKeyCode() == KeyEvent.VK_F1))
-            exit = true;*/
+        if((key.getKeyCode() == KeyEvent.VK_ESCAPE))
+            exit = true;
     }
     public void keyTyped(KeyEvent arg0) {
-        // TODO Auto-generated method stub
-
+        // Solo per override di tutti i metodi.
     }
 
 
@@ -71,7 +70,7 @@ public class Camera implements KeyListener {
             planeY = oldPlaneX * Math.sin(rotSpeed) + planeY * Math.cos(rotSpeed);
         }
 
-        return true;
+        return exit;
     }
 
 }
