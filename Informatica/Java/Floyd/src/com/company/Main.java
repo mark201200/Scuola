@@ -15,7 +15,6 @@ public class Main {
                 c++;
             }
             System.out.println("");
-
         }
     }
 }

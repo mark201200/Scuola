@@ -5,18 +5,18 @@ import java.awt.image.*;
 public class RayCaster extends JFrame {
     boolean isRunning = true;
     private BufferedImage image;
-    static int w = 640, h = 480;
+    static int w = 1280, h = 1024;
     public int[] pixels;
     Camera camera;
     Screen screen;
     Graphics g;
     public static int[][] worldMap =
             {       {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 7, 7, 7, 7, 7, 7, 7},
-                    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                    {4, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
-                    {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
+                    {4, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
+                    {4, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
+                    {4, 0, 0, 0, 0, 1, 0, 3, 3, 3, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
+                    {4, 0, 0, 0, 0, 1, 0, 3, 0, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
+                    {4, 0, 0, 0, 0, 1, 0, 3, 0, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7},
                     {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
                     {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8},
                     {4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -51,6 +51,7 @@ public class RayCaster extends JFrame {
             time = (1000 / 60) - (System.currentTimeMillis() - time);
             if (time > 0) {
                 try {
+                    isRunning=camera.update(worldMap);
                     Thread.sleep(time);
                 } catch (Exception e) {
                 }
@@ -76,7 +77,7 @@ public class RayCaster extends JFrame {
         image=new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
         addKeyListener(camera);
-        setTitle("CCQ");
+        setTitle("RayCaster");
         setSize(w, h);
         setLocationRelativeTo(null);
         setVisible(true);
