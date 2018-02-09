@@ -14,7 +14,7 @@ public class Main {
         }
 
         if (valido) {
-            for (int i = 2; i < 4; i++) {
+            for (int i = 1; i < 3; i++) {
                 if ((Character.getNumericValue(numero.charAt(i)) < 1) || (Character.getNumericValue(numero.charAt(i)) > 4)) {
                     valido = false;
                     break;
