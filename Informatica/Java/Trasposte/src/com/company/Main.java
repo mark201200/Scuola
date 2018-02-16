@@ -1,14 +1,16 @@
 package com.company;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Random ccq = new Random();
-        int temp=0;
-        int r=3;
-
+        Scanner ccq1 = new Scanner(System.in);
+        int temp;
+        System.out.println("Inserisci grandezza matrice");
+        int r = ccq1.nextInt();
         int[][] mat = new int[r][r];
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < r; j++) {
@@ -19,16 +21,16 @@ public class Main {
         }
         System.out.println("");
 
-        for (int i = 0; i < /*non deve andare oltre la meta*/; i++) {
-            for (int j = 1; j < 3; j++) {
-                temp=mat[i][j];
-                mat[i][j]=mat[j][i];
-                mat[j][i]=temp;
+        for (int i = 0; i < r - 1; i++) {
+            for (int j = i + 1; j < r; j++) {
+                temp = mat[i][j];
+                mat[i][j] = mat[j][i];
+                mat[j][i] = temp;
             }
         }
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++)
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < r; j++)
                 System.out.print(mat[i][j] + " ");
             System.out.println("");
         }
