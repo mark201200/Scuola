@@ -4,8 +4,19 @@ public class Angolo {
     private int gradi, primi, secondi;
 
     public Angolo(int g, int p, int s) {
+        while (g >= 360) {
+            g = g - 360;
+        }
         gradi = g;
+        while (p >= 60) {
+            p = p - 60;
+            gradi++;
+        }
         primi = p;
+        while (s >= 60) {
+            s = s - 60;
+            primi++;
+        }
         secondi = s;
     }
 
@@ -46,6 +57,21 @@ public class Angolo {
     }
 
     public void sommaAngolo(Angolo a) {
-        //todo
+        gradi += a.gradi;
+        primi += a.primi;
+        secondi += a.secondi;
+        while (gradi >= 360) {
+            gradi = gradi - 360;
+        }
+        while (primi >= 60) {
+            primi = primi - 60;
+            gradi++;
+        }
+
+        while (secondi >= 60) {
+            secondi = secondi - 60;
+            primi++;
+        }
+
     }
 }

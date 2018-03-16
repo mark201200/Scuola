@@ -3,10 +3,10 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        Angolo a=new Angolo(0,0,0);
-        a.secondiAngolo(119);
-        a.visualizzaAngolo();
-
+    Angolo a = new Angolo(100,30,30);
+    Angolo b = new Angolo(100,29,29);
+    a.sommaAngolo(b);
+a.visualizzaAngolo();
 
     }
 }
