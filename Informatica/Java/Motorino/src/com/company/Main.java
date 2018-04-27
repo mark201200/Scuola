@@ -11,6 +11,5 @@ public class Main {
         System.out.println("Velocita m1: "+m1.getVelocita());
         System.out.println("Velocita m2: "+m2.getVelocita());
 
-
     }
 }
