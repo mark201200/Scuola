@@ -15,7 +15,7 @@ public class MsgRcv extends Thread {
     public void run() {                     //Faccio l'override del metodo run, cosi chiamando .start() nel main...
         //... mi si creerà un thread. Notare che la classe estende Thread.
 
-        boolean isRunning = true;           //se è falsa, esce. Vedi rigo 37
+        boolean isRunning = true;           //se è falsa, esce. Vedi rigo 30
         String recv = null;                 //Stringa che conterrà il messaggio ricevuto, tutto bello formattato.
 
         try {
