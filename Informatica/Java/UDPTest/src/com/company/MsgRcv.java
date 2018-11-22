@@ -12,7 +12,7 @@ public class MsgRcv extends Thread {
     //^Inizializzo socket e pacchetto, mi serviranno dopo.
 
 
-    public void run() {                     //Faccio l'override del metodo run, cosi chiamando .run() nel main...
+    public void run() {                     //Faccio l'override del metodo run, cosi chiamando .start() nel main...
         //... mi si creerà un thread. Notare che la classe estende Thread.
 
         boolean isRunning = true;           //se è falsa, esce. Vedi rigo 37
