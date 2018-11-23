@@ -11,6 +11,9 @@ public class MsgSend extends Thread {
     private BufferedReader reader = null;
     private PrintWriter writer = null;
     private String uname = null;
+    private boolean scan = true;
+    private boolean named = false;
+    private String input;                           //Il mio input. Cioè quello che scrivo in console.
 
     public MsgSend(String add) throws UnknownHostException {
         address = InetAddress.getByName(add);               //converte l'indirizzo da String a InetAddress, che viene usato dal socket.
@@ -18,14 +21,23 @@ public class MsgSend extends Thread {
 
     public void run() {
 
-        try {
-            socket = new Socket(address, 1337);        //Crea il socket sulla porta 1337
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (scan) {
+            try {
+                socket = new Socket(address, 1337);        //Crea il socket sulla porta 1337
+                scan = false;
+            } catch (ConnectException e) {
+                System.out.println("Tentativo di connessione..."); //se non riesco immediatamente a connettermi, aspetto 1 sec
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-        boolean isRunning = true;                            		 	//vedi MsgRcv
+        boolean isRunning = true;                                        //vedi MsgRcv
         reader = new BufferedReader(new InputStreamReader(System.in));  //Un lettore, legge quello che scrivo in console.
 
         try {
@@ -34,32 +46,21 @@ public class MsgSend extends Thread {
             e.printStackTrace();
         }
 
-        String input;                                                   //Il mio input. Cioè quello che scrivo in console.
-
         while (isRunning) {
-            if(uname==null){											//se non ho messo l'user, chiedilo.
+            if (!named) {                                    //se non ho messo l'user, chiedilo.
                 System.out.println("\nInserisci il tuo username: ");
-                try {
-                    input = reader.readLine();                              //Il reader legge ciò che scrivo
-                    writer.println(input);
-                    if (input.equals("Stop."))                              //se scrivo "Stop." il programma si ferma
-                        isRunning = false;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            System.out.println("\nInserisci il tuo messaggio: ");
+                named = true;
+            } else System.out.println("\nInserisci il tuo messaggio: ");
             try {
                 input = reader.readLine();                              //Il reader legge ciò che scrivo
-                writer.println(input);									//Il writer lo scrive nello stream, vedi riga 32 
+                writer.println(input);
                 if (input.equals("Stop."))                              //se scrivo "Stop." il programma si ferma
                     isRunning = false;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-		
+
         try {
             socket.close();
         } catch (IOException e) {
