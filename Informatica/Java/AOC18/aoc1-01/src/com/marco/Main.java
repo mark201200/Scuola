@@ -1,10 +1,7 @@
 package com.marco;
-
 import java.io.*;
 import java.util.ArrayList;
-
 public class Main {
-
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Marco\\Desktop\\input.txt"));
         String l = reader.readLine();
